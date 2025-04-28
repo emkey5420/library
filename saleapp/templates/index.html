@@ -1,0 +1,35 @@
+<!--trang chủ của khách hàng-->
+
+{% extends 'layout/base.html' %}
+
+{% block content %}
+{% if pages > 1 %}
+<ul class="pagination mt-2">
+    {% for i in range(1, pages + 1) %}
+    <li class="page-item"><a class="page-link" href="/?page={{ i }}">{{ i }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if books %}
+<div class="container">
+    <div class="row">
+        {% for b in books %}
+        <div class="col-md-3 col-12 p-2">
+            <div class="card">
+                <img class="card-img-top" src="{{ b.image }}" alt="Book image">
+                <div class="card-body">
+                    <h4 class="card-title">{{ b.name }}</h4>
+                    <p class="card-text">{{ b.price }} VNĐ</p>
+                    <a href="/books/{{ b.id }}" class="btn btn-primary">Xem chi tiết</a>
+                    <button type="button" onclick="addToCart({{b.id}}, '{{ b.name }}', {{ b.price }})">Đặt hàng</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info mt-1">KHÔNG có sách nào.</div>
+{% endif %}
+{% endblock %}
